@@ -527,6 +527,17 @@ export async function getAllInstancesOfUserController(req:Request,res:Response){
     },{
       $unwind:"$backend"
     }])
+    
+    for(let i=0;i<allUserInstances.length;i++){
+      const backendId=allUserInstances[i].backendId
+      if(activeBackends.has(backendId)){
+        const {LAN_IP} = activeBackends.get(backendId)
+        allUserInstances[i].backend.LAN_IP=LAN_IP
+      } else {
+        allUserInstances[i].backend.LAN_IP="Backend is Offline"
+      }
+    }
+    
     return res.status(200).json(
       new ApiResponse(true,"All instances fetched successfully",allUserInstances)
     )
