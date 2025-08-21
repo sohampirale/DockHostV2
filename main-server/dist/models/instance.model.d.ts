@@ -7,12 +7,14 @@ export declare const instanceSchema: mongoose.Schema<any, mongoose.Model<any, an
 } & {
     userId: mongoose.Types.ObjectId;
     backendId: mongoose.Types.ObjectId;
+    running: boolean;
 }, mongoose.Document<unknown, {}, mongoose.FlatRecord<{
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
     userId: mongoose.Types.ObjectId;
     backendId: mongoose.Types.ObjectId;
+    running: boolean;
 }>, {}, mongoose.ResolveSchemaOptions<{
     timestamps: true;
 }>> & mongoose.FlatRecord<{
@@ -21,6 +23,7 @@ export declare const instanceSchema: mongoose.Schema<any, mongoose.Model<any, an
 } & {
     userId: mongoose.Types.ObjectId;
     backendId: mongoose.Types.ObjectId;
+    running: boolean;
 }> & {
     _id: mongoose.Types.ObjectId;
 } & {
@@ -32,12 +35,14 @@ declare const Instance: mongoose.Model<{
 } & {
     userId: mongoose.Types.ObjectId;
     backendId: mongoose.Types.ObjectId;
+    running: boolean;
 }, {}, {}, {}, mongoose.Document<unknown, {}, {
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
     userId: mongoose.Types.ObjectId;
     backendId: mongoose.Types.ObjectId;
+    running: boolean;
 }, {}, {
     timestamps: true;
 }> & {
@@ -46,6 +51,7 @@ declare const Instance: mongoose.Model<{
 } & {
     userId: mongoose.Types.ObjectId;
     backendId: mongoose.Types.ObjectId;
+    running: boolean;
 } & {
     _id: mongoose.Types.ObjectId;
 } & {
@@ -58,12 +64,14 @@ declare const Instance: mongoose.Model<{
 } & {
     userId: mongoose.Types.ObjectId;
     backendId: mongoose.Types.ObjectId;
+    running: boolean;
 }, mongoose.Document<unknown, {}, mongoose.FlatRecord<{
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
     userId: mongoose.Types.ObjectId;
     backendId: mongoose.Types.ObjectId;
+    running: boolean;
 }>, {}, mongoose.ResolveSchemaOptions<{
     timestamps: true;
 }>> & mongoose.FlatRecord<{
@@ -72,6 +80,7 @@ declare const Instance: mongoose.Model<{
 } & {
     userId: mongoose.Types.ObjectId;
     backendId: mongoose.Types.ObjectId;
+    running: boolean;
 }> & {
     _id: mongoose.Types.ObjectId;
 } & {

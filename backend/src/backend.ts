@@ -92,13 +92,27 @@ socket.on("stop_container", (data: { USERNAME: string }) => {
     },
     (error, stdout, stderr) => {
       if (error) {
-        console.error(`❌ Command failed: ${error.message}`);
+        socket.emit(USERNAME,{
+          status:500,
+          success:false,
+          message:'Failed to stop instance'
+        })
         return;
       }
       if (stderr) {
         console.error(`⚠️ Error output: ${stderr}`);
+        socket.emit(USERNAME,{
+          status:500,
+          success:false,
+          message:'Error while resuming instance'
+        })
         return;
       }
+      socket.emit(USERNAME,{
+        status:200,
+        success:true,
+        message:'Instance stopped successfully'
+      })
       console.log(`✅ Success:\n${stdout}`);
     }
   );
@@ -124,12 +138,27 @@ socket.on("resume_container", (data: { USERNAME: string }) => {
     (error, stdout, stderr) => {
       if (error) {
         console.error(`❌ Command failed: ${error.message}`);
+        socket.emit(USERNAME,{
+          status:500,
+          success:false,
+          message:'Error while resuming instance'
+        })
         return;
       }
       if (stderr) {
         console.error(`⚠️ Error output: ${stderr}`);
+        socket.emit(USERNAME,{
+          status:500,
+          success:false,
+          message:'Error while resuming instance'
+        })
         return;
       }
+      socket.emit(USERNAME,{
+        status:200,
+        success:true,
+        message:'Instance resumed successfully'
+      })
       console.log(`✅ Success:\n${stdout}`);
     }
   );
@@ -154,14 +183,32 @@ socket.on("delete_container", (data: { USERNAME: string }) => {
     },
     (error, stdout, stderr) => {
       if (error) {
+        socket.emit(USERNAME,{
+          status:500,
+          success:false,
+          message:"Failed to delete container"
+        })
         console.error(`❌ Command failed: ${error.message}`);
         return;
       }
+
       if (stderr) {
         console.error(`⚠️ Error output: ${stderr}`);
+        socket.emit(USERNAME,{
+          status:500,
+          success:false,
+          message:"Error while deleting container"
+        })
         return;
       }
-      console.log(`✅ Success:\n${stdout}`);
+
+      socket.emit(USERNAME,{
+        status:200,
+        success:true,
+        message:"Instance deleted successfully"
+      })
+
+      console.log(`✅ Success deleting container :\n${stdout}`);
     }
   );
 
@@ -170,10 +217,29 @@ socket.on("delete_container", (data: { USERNAME: string }) => {
 socket.on('check_if_container_exists',(data:{USERNAME:string})=>{
   const {USERNAME} = data;
   
-  exec(`docker ps -a --format ${USERNAME}'`, (err, stdout) => {
-    if (err) return socket.emit(USERNAME,false)
+  exec(`docker ps -a --format ${USERNAME}`, (err, stdout) => {
+    if (err) {
+      console.log('err : ',err);
+      
+      return socket.emit(USERNAME,false)
+    }
     const exists = stdout.split("\n").includes(USERNAME);
+    console.log('exists = ',exists);
+    
     socket.emit(USERNAME,exists)
+  });
+})
+
+socket.on('check_if_container_running',(data:{USERNAME:string})=>{
+  const {USERNAME} = data;
+  
+  exec(`docker ps --format ${USERNAME}`, (err, stdout) => {
+    if (err) {      
+      return socket.emit(USERNAME,false)
+    }
+    const running = stdout.split("\n").includes(USERNAME);
+    console.log('running = ',running);
+    socket.emit(USERNAME,running)
   });
 })
 

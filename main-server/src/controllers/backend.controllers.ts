@@ -10,12 +10,12 @@ export async function signupBackendController(req:Request,res:Response){
   try {
     const {username,password,labName,opearatingSystem,maxContainers}=req.body;
 
-    const existingInstance=await Instance.findOne({
+    const existingBackend=await Backend.findOne({
       username
     })
 
-    if(existingInstance){
-      throw new ApiError(409,"Instance with that username already exists")
+    if(existingBackend){
+      throw new ApiError(409,"Backend with that username already exists")
     }
 
     const backend = await Backend.create({
@@ -31,8 +31,8 @@ export async function signupBackendController(req:Request,res:Response){
     }
 
     const payload={
-      _id:instance._id,
-      username:instance.username
+      _id:backend._id,
+      username:backend.username
     }
     
     const DOCKHOST_API_KEY = generateBackendAccessToken(payload)

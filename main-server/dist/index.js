@@ -40,7 +40,7 @@ export const activeBackends = new Map();
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api/v2/user", userRouter);
-app.use('/instance', backendRouter);
+app.use('/api/v2/backend', backendRouter);
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../src/public', 'index.html'));
 });
@@ -52,6 +52,7 @@ io.use((socket, next) => {
             socket,
             backendInfo
         });
+        socket.backendId = backendInfo._id;
     }
     catch (error) {
         return next(new Error("Invalid DOCKHOST_API_KEY"));
@@ -62,32 +63,12 @@ io.on('connection', (socket) => {
     console.log('Backend connected');
     socket.on('disconnect', () => {
         console.log('Backend disconnected');
+        const backendId = socket.backendId;
+        if (activeBackends.has(backendId)) {
+            activeBackends.delete(backendId);
+            console.log('Backend removed from activeBackends');
+        }
     });
-    // setTimeout(()=>{
-    //   console.log('Sending a request to start a container');
-    //   socket.emit('start_container',{
-    //     SSH_PUB_KEY:"SSH_PUB_KEY_OF my host machine",
-    //     USERNAME:"soham"
-    //   })
-    // },2000)
-    // setTimeout(()=>{
-    //   console.log('sending request to stop the container');
-    //   socket.emit('stop_container',{
-    //     USERNAME:'soham'
-    //   })
-    // },15000)
-    // setTimeout(()=>{
-    //   console.log('Resuming old container');
-    //   socket.emit("resume_container",{
-    //     USERNAME:"soham"
-    //   })
-    // },5000)
-    // setTimeout(()=>{
-    //   console.log('deleting old container');
-    //   socket.emit("delete_container",{
-    //     USERNAME:"soham"
-    //   })
-    // },10000)
 });
 // console.log('inside socket/io middleware');
 // const role = socket.handshake.query.role;

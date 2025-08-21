@@ -10,6 +10,10 @@ export const instanceSchema = new Schema({
         ref: "Backend",
         required: true,
     },
+    running: {
+        type: Boolean,
+        default: true
+    }
 }, {
     timestamps: true,
 });
