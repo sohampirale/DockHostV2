@@ -65,6 +65,50 @@ socket.on("stop_container", (data) => {
         console.log(`✅ Success:\n${stdout}`);
     });
 });
+socket.on("resume_container", (data) => {
+    console.log("📥 data:", data);
+    const { USERNAME } = data;
+    const scriptPath = path.join(__dirname, "bashfiles", "resume_container.sh");
+    console.log("Script path is:", scriptPath);
+    console.log("Exists?", fs.existsSync(scriptPath));
+    execFile(scriptPath, [], {
+        env: {
+            USERNAME,
+        },
+    }, (error, stdout, stderr) => {
+        if (error) {
+            console.error(`❌ Command failed: ${error.message}`);
+            return;
+        }
+        if (stderr) {
+            console.error(`⚠️ Error output: ${stderr}`);
+            return;
+        }
+        console.log(`✅ Success:\n${stdout}`);
+    });
+});
+socket.on("delete_container", (data) => {
+    console.log("📥 data:", data);
+    const { USERNAME } = data;
+    const scriptPath = path.join(__dirname, "bashfiles", "delete_container.sh");
+    console.log("Script path is:", scriptPath);
+    console.log("Exists?", fs.existsSync(scriptPath));
+    execFile(scriptPath, [], {
+        env: {
+            USERNAME
+        },
+    }, (error, stdout, stderr) => {
+        if (error) {
+            console.error(`❌ Command failed: ${error.message}`);
+            return;
+        }
+        if (stderr) {
+            console.error(`⚠️ Error output: ${stderr}`);
+            return;
+        }
+        console.log(`✅ Success:\n${stdout}`);
+    });
+});
 socket.on("connect_error", (err) => {
     console.error("❌ Connection error:", err.message);
 });

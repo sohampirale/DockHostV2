@@ -7,7 +7,6 @@ export declare function getUserWithId(_id: string): Promise<(mongoose.Document<u
     email: string;
     password: string;
     isVerified: boolean;
-    instances: mongoose.Types.ObjectId[];
 }, {}, {
     timestamps: true;
 }> & {
@@ -18,7 +17,6 @@ export declare function getUserWithId(_id: string): Promise<(mongoose.Document<u
     email: string;
     password: string;
     isVerified: boolean;
-    instances: mongoose.Types.ObjectId[];
 } & {
     _id: mongoose.Types.ObjectId;
 } & {

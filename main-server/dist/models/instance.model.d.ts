@@ -5,34 +5,22 @@ export declare const instanceSchema: mongoose.Schema<any, mongoose.Model<any, an
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
-    username: string;
-    password: string;
-    maxContainers: number;
-    API_KEY?: string | null;
-    opearatingSystem?: string | null;
-    labName?: string | null;
+    userId: mongoose.Types.ObjectId;
+    backendId: mongoose.Types.ObjectId;
 }, mongoose.Document<unknown, {}, mongoose.FlatRecord<{
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
-    username: string;
-    password: string;
-    maxContainers: number;
-    API_KEY?: string | null;
-    opearatingSystem?: string | null;
-    labName?: string | null;
+    userId: mongoose.Types.ObjectId;
+    backendId: mongoose.Types.ObjectId;
 }>, {}, mongoose.ResolveSchemaOptions<{
     timestamps: true;
 }>> & mongoose.FlatRecord<{
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
-    username: string;
-    password: string;
-    maxContainers: number;
-    API_KEY?: string | null;
-    opearatingSystem?: string | null;
-    labName?: string | null;
+    userId: mongoose.Types.ObjectId;
+    backendId: mongoose.Types.ObjectId;
 }> & {
     _id: mongoose.Types.ObjectId;
 } & {
@@ -42,34 +30,22 @@ declare const Instance: mongoose.Model<{
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
-    username: string;
-    password: string;
-    maxContainers: number;
-    API_KEY?: string | null;
-    opearatingSystem?: string | null;
-    labName?: string | null;
+    userId: mongoose.Types.ObjectId;
+    backendId: mongoose.Types.ObjectId;
 }, {}, {}, {}, mongoose.Document<unknown, {}, {
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
-    username: string;
-    password: string;
-    maxContainers: number;
-    API_KEY?: string | null;
-    opearatingSystem?: string | null;
-    labName?: string | null;
+    userId: mongoose.Types.ObjectId;
+    backendId: mongoose.Types.ObjectId;
 }, {}, {
     timestamps: true;
 }> & {
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
-    username: string;
-    password: string;
-    maxContainers: number;
-    API_KEY?: string | null;
-    opearatingSystem?: string | null;
-    labName?: string | null;
+    userId: mongoose.Types.ObjectId;
+    backendId: mongoose.Types.ObjectId;
 } & {
     _id: mongoose.Types.ObjectId;
 } & {
@@ -80,34 +56,22 @@ declare const Instance: mongoose.Model<{
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
-    username: string;
-    password: string;
-    maxContainers: number;
-    API_KEY?: string | null;
-    opearatingSystem?: string | null;
-    labName?: string | null;
+    userId: mongoose.Types.ObjectId;
+    backendId: mongoose.Types.ObjectId;
 }, mongoose.Document<unknown, {}, mongoose.FlatRecord<{
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
-    username: string;
-    password: string;
-    maxContainers: number;
-    API_KEY?: string | null;
-    opearatingSystem?: string | null;
-    labName?: string | null;
+    userId: mongoose.Types.ObjectId;
+    backendId: mongoose.Types.ObjectId;
 }>, {}, mongoose.ResolveSchemaOptions<{
     timestamps: true;
 }>> & mongoose.FlatRecord<{
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
-    username: string;
-    password: string;
-    maxContainers: number;
-    API_KEY?: string | null;
-    opearatingSystem?: string | null;
-    labName?: string | null;
+    userId: mongoose.Types.ObjectId;
+    backendId: mongoose.Types.ObjectId;
 }> & {
     _id: mongoose.Types.ObjectId;
 } & {

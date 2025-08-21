@@ -2,7 +2,7 @@ import ApiError from "../helpers/ApiError.js";
 import ApiResponse from "../helpers/ApiResponse.js";
 import handleApiError from "../helpers/handleApiError.js";
 import { generateInstanceAccessToken, generateUserAccessToken } from "../helpers/token.js";
-import Instance from "../models/instance.model.js";
+import Instance from "../models/backend.model.js";
 export async function signupInstanceController(req, res) {
     try {
         const { username, password, labName, opearatingSystem, maxContainers } = req.body;

@@ -19,12 +19,7 @@ export const userSchema = new Schema({
   isVerified:{
     type:Boolean,
     default:false
-  },
-  instances:[{
-    type:Schema.Types.ObjectId,
-    ref:"Instance",
-    default:[]
-  }]
+  }
 },{
   timestamps:true,
 })

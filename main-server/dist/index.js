@@ -1,12 +1,13 @@
 import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
+import cookieParser from "cookie-parser";
 import http from "http";
 import { Server } from "socket.io";
 import { fileURLToPath } from 'url';
 import path from 'path';
 import connectDB from "./lib/connectDB.js";
-import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
@@ -19,15 +20,9 @@ const io = new Server(server, {
     }
 });
 import cors from "cors";
-import cookie from "cookie";
 //routers
 import userRouter from "./routes/user.routes.js";
-import { verifyInstanceAccessToken, verifyUserAccessToken } from "./helpers/verifyToken.js";
-import ApiError from "./helpers/ApiError.js";
-import instanceRouter from "./routes/instance.routes.js";
-import { roomNameGenerator } from "./helpers/randomRoomNameGenerator.js";
-import { getAllInstancesOfUserWithId, getUserWithId } from "./services/user.services.js";
-import { SocketAddress } from "net";
+import backendRouter from "./routes/backend.routes.js";
 connectDB().then(() => {
     server.listen(3000, () => {
         console.log('✅ Server listening on http://localhost:3000');
@@ -41,36 +36,58 @@ app.use(cors({
     origin: process.env.FRONTEND_URL,
     credentials: true
 }));
-const activeUsers = new Map();
-const activeInstances = new Map();
-const activeRooms = new Map();
-const userIdToSocketId = new Map();
-const instanceIdToSocketId = new Map();
-let allInstances = [];
+export const activeBackends = new Map();
 app.use(express.json());
-app.use("/user", userRouter);
-app.use('/instance', instanceRouter);
+app.use(cookieParser());
+app.use("/api/v2/user", userRouter);
+app.use('/instance', backendRouter);
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../src/public', 'index.html'));
+});
+io.use((socket, next) => {
+    const DOCKHOST_API_KEY = socket.handshake.auth.DOCKHOST_API_KEY;
+    try {
+        const backendInfo = jwt.verify(DOCKHOST_API_KEY, process.env.BACKEND_ACCESS_TOKEN_SECRET);
+        activeBackends.set(backendInfo._id, {
+            socket,
+            backendInfo
+        });
+    }
+    catch (error) {
+        return next(new Error("Invalid DOCKHOST_API_KEY"));
+    }
+    return next();
 });
 io.on('connection', (socket) => {
     console.log('Backend connected');
     socket.on('disconnect', () => {
         console.log('Backend disconnected');
     });
-    setTimeout(() => {
-        console.log('Sending a request to start a container');
-        socket.emit('start_container', {
-            SSH_PUB_KEY: "SSH_PUB_KEY_OF my host machine",
-            USERNAME: "soham"
-        });
-    }, 2000);
-    setTimeout(() => {
-        console.log('sending request to stop the container');
-        socket.emit('stop_container', {
-            USERNAME: 'soham'
-        });
-    }, 15000);
+    // setTimeout(()=>{
+    //   console.log('Sending a request to start a container');
+    //   socket.emit('start_container',{
+    //     SSH_PUB_KEY:"SSH_PUB_KEY_OF my host machine",
+    //     USERNAME:"soham"
+    //   })
+    // },2000)
+    // setTimeout(()=>{
+    //   console.log('sending request to stop the container');
+    //   socket.emit('stop_container',{
+    //     USERNAME:'soham'
+    //   })
+    // },15000)
+    // setTimeout(()=>{
+    //   console.log('Resuming old container');
+    //   socket.emit("resume_container",{
+    //     USERNAME:"soham"
+    //   })
+    // },5000)
+    // setTimeout(()=>{
+    //   console.log('deleting old container');
+    //   socket.emit("delete_container",{
+    //     USERNAME:"soham"
+    //   })
+    // },10000)
 });
 // console.log('inside socket/io middleware');
 // const role = socket.handshake.query.role;

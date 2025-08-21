@@ -9,7 +9,6 @@ export declare const userSchema: mongoose.Schema<any, mongoose.Model<any, any, a
     email: string;
     password: string;
     isVerified: boolean;
-    instances: mongoose.Types.ObjectId[];
 }, mongoose.Document<unknown, {}, mongoose.FlatRecord<{
     createdAt: NativeDate;
     updatedAt: NativeDate;
@@ -18,7 +17,6 @@ export declare const userSchema: mongoose.Schema<any, mongoose.Model<any, any, a
     email: string;
     password: string;
     isVerified: boolean;
-    instances: mongoose.Types.ObjectId[];
 }>, {}, mongoose.ResolveSchemaOptions<{
     timestamps: true;
 }>> & mongoose.FlatRecord<{
@@ -29,7 +27,6 @@ export declare const userSchema: mongoose.Schema<any, mongoose.Model<any, any, a
     email: string;
     password: string;
     isVerified: boolean;
-    instances: mongoose.Types.ObjectId[];
 }> & {
     _id: mongoose.Types.ObjectId;
 } & {
@@ -43,7 +40,6 @@ declare const User: mongoose.Model<{
     email: string;
     password: string;
     isVerified: boolean;
-    instances: mongoose.Types.ObjectId[];
 }, {}, {}, {}, mongoose.Document<unknown, {}, {
     createdAt: NativeDate;
     updatedAt: NativeDate;
@@ -52,7 +48,6 @@ declare const User: mongoose.Model<{
     email: string;
     password: string;
     isVerified: boolean;
-    instances: mongoose.Types.ObjectId[];
 }, {}, {
     timestamps: true;
 }> & {
@@ -63,7 +58,6 @@ declare const User: mongoose.Model<{
     email: string;
     password: string;
     isVerified: boolean;
-    instances: mongoose.Types.ObjectId[];
 } & {
     _id: mongoose.Types.ObjectId;
 } & {
@@ -78,7 +72,6 @@ declare const User: mongoose.Model<{
     email: string;
     password: string;
     isVerified: boolean;
-    instances: mongoose.Types.ObjectId[];
 }, mongoose.Document<unknown, {}, mongoose.FlatRecord<{
     createdAt: NativeDate;
     updatedAt: NativeDate;
@@ -87,7 +80,6 @@ declare const User: mongoose.Model<{
     email: string;
     password: string;
     isVerified: boolean;
-    instances: mongoose.Types.ObjectId[];
 }>, {}, mongoose.ResolveSchemaOptions<{
     timestamps: true;
 }>> & mongoose.FlatRecord<{
@@ -98,7 +90,6 @@ declare const User: mongoose.Model<{
     email: string;
     password: string;
     isVerified: boolean;
-    instances: mongoose.Types.ObjectId[];
 }> & {
     _id: mongoose.Types.ObjectId;
 } & {

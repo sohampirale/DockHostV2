@@ -1,4 +1,4 @@
-import Instance from "../models/instance.model.js";
+import Instance from "../models/backend.model.js";
 import User from "../models/user.model.js";
 
 export async function createUser(username:string,email:string,password:string){
