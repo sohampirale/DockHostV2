@@ -279,7 +279,7 @@ export async function deleteExistingInstanceController(req:Request,res:Response)
             userId:userData._id
           })
 
-          if(!deletedInstance){
+          if(!deletedInstance.deletedCount){
             return res.status(500).json(
               new ApiResponse(false,"Deleted the instance from backend but failed to update database")
             )
@@ -492,7 +492,7 @@ const userData=req.data;
               await instance.save()
             }
             return res.status(status).json(
-              new ApiResponse(true,"Instance stopped successfuly")
+              new ApiResponse(true,message)
             )
           }
         })

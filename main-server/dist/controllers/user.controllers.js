@@ -360,7 +360,7 @@ export async function stopExistingInstanceController(req, res) {
                             instance.running = false;
                             await instance.save();
                         }
-                        return res.status(status).json(new ApiResponse(true, "Instance stopped successfuly"));
+                        return res.status(status).json(new ApiResponse(true, message));
                     }
                 });
             });
@@ -368,6 +368,34 @@ export async function stopExistingInstanceController(req, res) {
     }
     catch (error) {
         return res.status(500).json(new ApiResponse(false, error?.message ?? "Something went wrong : Delete Instance"));
+    }
+}
+/** Get all instances of user
+ * 1.authMiddleware -> route handler
+ * 2.aggregation pipeline i.match userId=userData._id ii.lookup for for backendId
+ * 3.return [0] of it
+ */
+export async function getAllInstancesOfUserController(req, res) {
+    try {
+        const userData = req.data;
+        const allUserInstances = await Instance.aggregate([{
+                $match: {
+                    userId: new mongoose.Types.ObjectId(userData._id)
+                }
+            }, {
+                $lookup: {
+                    from: "backends",
+                    localField: "backendId",
+                    foreignField: "_id",
+                    as: "backend"
+                }
+            }, {
+                $unwind: "$backend"
+            }]);
+        return res.status(200).json(new ApiResponse(true, "All instances fetched successfully", allUserInstances));
+    }
+    catch (error) {
+        return res.status(500).json(new ApiResponse(false, "Failed to fetch all instances"));
     }
 }
 //# sourceMappingURL=user.controllers.js.map

@@ -36,4 +36,10 @@ export declare function resumeExistingInstanceController(req: Request, res: Resp
  * 6.if yes then tell that backend to kill that container
  */
 export declare function stopExistingInstanceController(req: Request, res: Response): Promise<Response<any, Record<string, any>> | undefined>;
+/** Get all instances of user
+ * 1.authMiddleware -> route handler
+ * 2.aggregation pipeline i.match userId=userData._id ii.lookup for for backendId
+ * 3.return [0] of it
+ */
+export declare function getAllInstancesOfUserController(req: Request, res: Response): Promise<Response<any, Record<string, any>>>;
 //# sourceMappingURL=user.controllers.d.ts.map
