@@ -9,7 +9,7 @@ export default function AllInstances(){
 
     async function getAllInstances(){
         try {
-            const {data:response}=await api.get("/api/v2/user/instances")
+            const {data:response}=await api.get("/api/v2/user/instance")
             const allInstances=response.data;
             console.log('All Instances of user : ',allInstances);
             setAllMyInstances(allInstances)

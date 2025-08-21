@@ -505,3 +505,36 @@ const userData=req.data;
     )
   }
 }
+
+/** Get all instances of user
+ * 1.authMiddleware -> route handler
+ * 2.aggregation pipeline i.match userId=userData._id ii.lookup for for backendId
+ * 3.return [0] of it
+ */
+
+export async function getAllInstancesOfUserController(req:Request,res:Response){
+  try {
+    const userData=req.data;
+    const allUserInstances = await Instance.aggregate([{
+      $match:{
+        userId:new mongoose.Types.ObjectId(userData._id)
+      }
+    },{
+      $lookup:{
+        from:"backends",
+        localField:"backendId",
+        foreignField:"_id",
+        as:"backend"
+      }
+    },{
+      $unwind:"$backend"
+    }])
+    return res.status(200).json(
+      new ApiResponse(true,"All instances fetched successfully",allUserInstances)
+    )
+  } catch (error) {
+    return res.status(500).json(
+      new ApiResponse(false,"Failed to fetch all instances")
+    )
+  }
+}

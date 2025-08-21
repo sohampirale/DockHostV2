@@ -4,7 +4,7 @@ import ApiResponse from "../helpers/ApiResponse.js";
 import ApiError from "../helpers/ApiError.js";
 import { generateUserAccessToken } from "../helpers/token.js";
 import handleApiError from "../helpers/handleApiError.js";
-import { createNewInstanceController, deleteExistingInstanceController, resumeExistingInstanceController, stopExistingInstanceController, userSigninController, userSignupController } from "../controllers/user.controllers.js";
+import { createNewInstanceController, deleteExistingInstanceController, getAllInstancesOfUserController, resumeExistingInstanceController, stopExistingInstanceController, userSigninController, userSignupController } from "../controllers/user.controllers.js";
 import { MAX_CLIENT_WAITING_TIME, maxNoOfInstancesPerUser } from "../constants/index.js";
 import { activeBackends } from "../index.js";
 import Instance from "../models/instance.model.js";
@@ -26,5 +26,8 @@ userRouter.route('/instance/resume')
 
 userRouter.route('/instance/stop')
   .put(authMiddleware,stopExistingInstanceController)
+
+userRouter.route("/instance")
+  .get(authMiddleware,getAllInstancesOfUserController)
 
 export default userRouter;
