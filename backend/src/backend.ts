@@ -12,12 +12,46 @@ import { exec } from "node:child_process";
     
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+let LAN_IP;
+
+try {
+  const scriptPath = path.join(__dirname, "bashfiles", "GET_LAN_IP.sh");
+
+  console.log("Script path is:", scriptPath);
+  console.log("Exists?", fs.existsSync(scriptPath));
+
+  execFile(
+    scriptPath,
+    [],
+    {
+      
+    },
+    (error, stdout, stderr) => {
+      if (error) {
+        console.log('Failed to get LAN IP');
+        
+        return;
+      }
+      if (stderr) {
+        console.log('Failed to get LAN IP');
+        return;
+      }
+      console.log(`✅ Success:\n${stdout}`);
+      LAN_IP=stdout
+      
+    }
+  );
+} catch (error) {
+  
+}
+
 const socket: Socket = io(process.env.MAIN_SERVER_BACKEND_URL as string, {
   query: {
     role: "backend",
   },
   auth: {
     DOCKHOST_API_KEY: process.env.DOCKHOST_API_KEY,
+    LAN_IP
   },
 });
 

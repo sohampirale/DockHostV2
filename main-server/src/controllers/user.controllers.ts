@@ -96,8 +96,6 @@ export async function userSigninController(req: Request, res: Response) {
   }
 }
 
-//I like to add comments think about what i am going to write and then write backend code so...
-
 /**         Create an instance
  * 1.authMIddleware req.data from decoding jwt -> route handler
  * 2.check no of instances of user if it exceeds the allowed limit then reject
