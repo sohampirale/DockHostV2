@@ -5,7 +5,7 @@ services:
       - "3001:3001"
     depends_on:
       - mongo
-    container_name: backendcontainer
+    container_name: mainservercontainer
 
   mongo:
     image: mongo

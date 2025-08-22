@@ -8,7 +8,7 @@ RUN npm install
 
 COPY . .
 
-RUN cp .env.exmaple .env
+COPY .env.exmaple .env
 
 RUN npm run build || true
 

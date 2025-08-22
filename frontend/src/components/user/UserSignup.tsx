@@ -1,7 +1,6 @@
 "use client"
 
 import api from "@/util/api";
-import axios from "axios";
 import { useState } from "react"
 
 export default function UserSignup(){
