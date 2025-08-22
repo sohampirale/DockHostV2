@@ -46,11 +46,13 @@ app.get('/', (req, res) => {
 });
 io.use((socket, next) => {
     const DOCKHOST_API_KEY = socket.handshake.auth.DOCKHOST_API_KEY;
+    const LAN_IP = socket.handshake.auth.LAN_IP;
     try {
         const backendInfo = jwt.verify(DOCKHOST_API_KEY, process.env.BACKEND_ACCESS_TOKEN_SECRET);
         activeBackends.set(backendInfo._id, {
             socket,
-            backendInfo
+            backendInfo,
+            LAN_IP
         });
         socket.backendId = backendInfo._id;
     }

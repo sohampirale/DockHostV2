@@ -22,6 +22,10 @@ export const backendSchema = new Schema({
     maxContainers: {
         type: Number,
         default: 10
+    },
+    portNo: {
+        type: Number,
+        default: 1024
     }
 }, {
     timestamps: true,

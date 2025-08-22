@@ -8,6 +8,7 @@ export declare const backendSchema: mongoose.Schema<any, mongoose.Model<any, any
     username: string;
     password: string;
     maxContainers: number;
+    portNo: number;
     API_KEY?: string | null;
     opearatingSystem?: string | null;
     labName?: string | null;
@@ -18,6 +19,7 @@ export declare const backendSchema: mongoose.Schema<any, mongoose.Model<any, any
     username: string;
     password: string;
     maxContainers: number;
+    portNo: number;
     API_KEY?: string | null;
     opearatingSystem?: string | null;
     labName?: string | null;
@@ -30,6 +32,7 @@ export declare const backendSchema: mongoose.Schema<any, mongoose.Model<any, any
     username: string;
     password: string;
     maxContainers: number;
+    portNo: number;
     API_KEY?: string | null;
     opearatingSystem?: string | null;
     labName?: string | null;
@@ -45,6 +48,7 @@ declare const Backend: mongoose.Model<{
     username: string;
     password: string;
     maxContainers: number;
+    portNo: number;
     API_KEY?: string | null;
     opearatingSystem?: string | null;
     labName?: string | null;
@@ -55,6 +59,7 @@ declare const Backend: mongoose.Model<{
     username: string;
     password: string;
     maxContainers: number;
+    portNo: number;
     API_KEY?: string | null;
     opearatingSystem?: string | null;
     labName?: string | null;
@@ -67,6 +72,7 @@ declare const Backend: mongoose.Model<{
     username: string;
     password: string;
     maxContainers: number;
+    portNo: number;
     API_KEY?: string | null;
     opearatingSystem?: string | null;
     labName?: string | null;
@@ -83,6 +89,7 @@ declare const Backend: mongoose.Model<{
     username: string;
     password: string;
     maxContainers: number;
+    portNo: number;
     API_KEY?: string | null;
     opearatingSystem?: string | null;
     labName?: string | null;
@@ -93,6 +100,7 @@ declare const Backend: mongoose.Model<{
     username: string;
     password: string;
     maxContainers: number;
+    portNo: number;
     API_KEY?: string | null;
     opearatingSystem?: string | null;
     labName?: string | null;
@@ -105,6 +113,7 @@ declare const Backend: mongoose.Model<{
     username: string;
     password: string;
     maxContainers: number;
+    portNo: number;
     API_KEY?: string | null;
     opearatingSystem?: string | null;
     labName?: string | null;

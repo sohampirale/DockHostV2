@@ -14,6 +14,9 @@ export const instanceSchema = new Schema({
   running:{
     type:Boolean,
     default:true
+  },
+  allocatedPorts: {
+    type: [[mongoose.Schema.Types.Mixed]]
   }
 },{
   timestamps:true,

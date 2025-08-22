@@ -9,6 +9,8 @@ import { MAX_CLIENT_WAITING_TIME, maxNoOfInstancesPerUser } from "../constants/i
 import { activeBackends } from "../index.js";
 import { asyncSocketAwaiter, checkIfInstanceExists } from "../helpers/user.helpers.js";
 import Instance from "../models/instance.model.js";
+import giveRamdomPorts from "../helpers/giveRandomPort.js";
+import Backend from "../models/backend.model.js";
 
 export async function userSignupController(req: Request, res: Response) {
 
@@ -160,11 +162,23 @@ export async function createNewInstanceController(req:Request,res:Response) {
     for (const [key, value] of activeBackends) {
       console.log("Key:", key, "Value:", value);
 
+      
       const exists = await checkIfInstanceExists(value.socket, USERNAME);
+
+
       if (!exists) {
+        const backend = await Backend.findById(key)
+        if(!backend){
+          console.log('conitnuiing');
+          continue;
+        }
+
+        console.log('startingPortNo from main-server : ',backend.portNo);
+        
         value.socket.emit('start_container', {
           SSH_PUB_KEY,
-          USERNAME
+          USERNAME,
+          startingPortNo:backend.portNo
         })
 
         let timeout = false;
@@ -181,24 +195,34 @@ export async function createNewInstanceController(req:Request,res:Response) {
         await asyncSocketAwaiter(value.socket,USERNAME,async (data: {
           success: boolean,
           status: number,
-          message: string
+          message: string,
+          PORT_NO:number
         }) => {
-          console.log('inside handler');
-          
-          const newInstance = await Instance.create({
-            backendId: key,
-            userId: userData._id
-          })
           if (timeout) return;
           clearTimeout(timeoutId)
-          return res.status(data.status || 500).json(
-            new ApiResponse(data.success, data.message || "Something went wrong")
+
+          const {success,status,message,PORT_NO}=data;
+          console.log('inside handler');
+          if(success){
+            backend.portNo=PORT_NO+3
+            await backend.save()
+
+            const newInstance = await Instance.create({
+              backendId: key,
+              userId: userData._id,
+              allocatedPorts:[[PORT_NO,22],[PORT_NO+1,80],[PORT_NO+2,443]]
+            })
+            return res.status(200).json(
+              new ApiResponse(true,message,newInstance)
+            )
+          }
+          return res.status(status || 500).json(
+            new ApiResponse(false, data.message || "Something went wrong")
           )
         })
 
         console.log('awaited response from backend : ',value.backendInfo.username);
         
-
       }
     }
 

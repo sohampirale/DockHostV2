@@ -8,7 +8,7 @@ import * as fs from "fs";
 
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { exec } from "node:child_process";
+import { exec, execSync } from "node:child_process";
     
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -37,7 +37,8 @@ try {
         return;
       }
       console.log(`✅ Success:\n${stdout}`);
-      LAN_IP=stdout
+      LAN_IP=stdout.trim()
+      console.log('LAN_IP  : ',LAN_IP);
       
     }
   );
@@ -55,27 +56,54 @@ const socket: Socket = io(process.env.MAIN_SERVER_BACKEND_URL as string, {
   },
 });
 
+function isPortOpen(PORT_NO:number){
+  try {
+    const stdout = execSync(`ss -tuln | grep -E ':(${PORT_NO}|${PORT_NO + 1}|${PORT_NO + 2}) ' `, { stdio: "pipe" }).toString();
+    return stdout.trim().length === 0;
+  } catch (error:any) {
+    if (error.status === 1) {
+      return true;
+    }
+    throw error; 
+  }
+}
+
 socket.on("connect", () => {
   console.log("✅ Connected with server");
 });
 
-socket.on("start_container", (data: { SSH_PUB_KEY: string; USERNAME: string }) => {
+socket.on("start_container", (data: { SSH_PUB_KEY: string; USERNAME: string,startingPortNo:number }) => {
   console.log("📥 data:", data);
 
-  const { SSH_PUB_KEY, USERNAME } = data;
+  const { SSH_PUB_KEY, USERNAME,startingPortNo } = data;
   const scriptPath = path.join(__dirname, "bashfiles", "start_container.sh");
 
   console.log("Script path is:", scriptPath);
   console.log("Exists?", fs.existsSync(scriptPath));
+  let PORT_NO=startingPortNo
+
+  while(1){
+    if(!isPortOpen(PORT_NO)){
+      PORT_NO+=3
+    } else {
+      console.log('PORT : ',PORT_NO+' is open');
+      
+      break;
+    }
+  }
+  
 
   execFile(
     scriptPath,
     [],
     {
       env: {
-        ...process.env, // keep existing env vars
+        ...process.env, 
         SSH_PUB_KEY,
         USERNAME,
+        TCP_PORT:PORT_NO.toString(),
+        HTTP_PORT:(PORT_NO+1).toString(),
+        HTTPS_PORT:(PORT_NO+2).toString()
       },
     },
     (error, stdout, stderr) => {
@@ -97,10 +125,12 @@ socket.on("start_container", (data: { SSH_PUB_KEY: string; USERNAME: string }) =
         return;
       }
       console.log(`✅ Success:\n${stdout}`);
+      
       socket.emit(USERNAME,{
         status:201,
         success:true,
-        message:"Instance spawned successfully"
+        message:"Instance spawned successfully",
+        PORT_NO
       })
     }
   );
