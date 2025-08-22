@@ -19,6 +19,8 @@
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
+    "noEmitOnError": true,
+    "isolatedModules": true,
 
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
@@ -36,7 +38,6 @@
     "strict": true,
     "jsx": "react-jsx",
     "verbatimModuleSyntax": true,
-    "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,

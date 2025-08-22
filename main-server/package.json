@@ -1,7 +1,9 @@
 {
   "dependencies": {
+    "-": "^0.0.1",
     "@types/bcrypt": "^6.0.0",
     "bcrypt": "^6.0.0",
+    "ci": "^2.3.0",
     "cookie": "^1.0.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -9,14 +11,18 @@
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.17.1",
-    "node-pty": "^1.0.0",
     "nodemon": "^3.1.10",
     "socket.io": "^4.8.1",
     "typescript": "^5.9.2"
   },
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.9",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10"
   },
-  "type": "module"
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  }
 }

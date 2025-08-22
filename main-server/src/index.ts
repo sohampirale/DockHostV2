@@ -39,7 +39,6 @@ connectDB().then(() => {
   process.exit(1)
 })
 
-const allowedOrigin = process.env.FRONTEND_URL;
 
 app.use(cors({
   origin: process.env.FRONTEND_URL,
@@ -393,19 +392,19 @@ io.on('connection', (socket) => {
 
 
 
-function printActiveUsers(){
-  console.log('-----------ACTIVE-USERS------------------');
-  console.log(activeUsers);
-  console.log('-----------userIdToSocketId------------------');
-  console.log(userIdToSocketId);
-}
+// function printActiveUsers(){
+//   console.log('-----------ACTIVE-USERS------------------');
+//   console.log(activeUsers);
+//   console.log('-----------userIdToSocketId------------------');
+//   console.log(userIdToSocketId);
+// }
 
-function printActiveInstances(){
-  console.log('-----------ACTIVE-INSTANCES--------------');
-  console.log(activeInstances);
-  console.log('-----------instanceIdToSocketId------------------');
-  console.log(instanceIdToSocketId);
-}
+// function printActiveInstances(){
+//   console.log('-----------ACTIVE-INSTANCES--------------');
+//   console.log(activeInstances);
+//   console.log('-----------instanceIdToSocketId------------------');
+//   console.log(instanceIdToSocketId);
+// }
 
 // setInterval(()=>{
 //   console.log('-----------ACTIVE-USERS------------------');
