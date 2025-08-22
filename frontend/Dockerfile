@@ -12,4 +12,4 @@ RUN cp .env.exmaple .env
 
 RUN npm run build || true
 
-CMD ["node","dist/index.js"]
+CMD ["npm","run","start"]

@@ -19,7 +19,7 @@
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
-    "noEmitOnError": true,
+    "noEmitOnError": false,
     "isolatedModules": true,
 
     // Stricter Typechecking Options
