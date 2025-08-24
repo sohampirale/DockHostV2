@@ -9,7 +9,7 @@ RUN npm install
 
 COPY . .
 
-COPY .env.exmaple .env
+COPY .env.example .env
 
 ENV NEXT_PUBLIC_MAIN_SERVER_URL "http://mainservercontainer:3000"
 
