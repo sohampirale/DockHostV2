@@ -13,19 +13,19 @@ The platform consists of three main components:
 
 ## Architecture
 
-```
+``` 
 ┌─────────────┐    ┌──────────────┐    ┌─────────────────┐
-│   Frontend  │────│ Main Server  │────│ Backend Machine │
+│   Frontend  │────│ Main Server  │────│ Backend Machines│
 │  (Next.js)  │    │  (Express +  │    │   (Docker +     │
 │             │    │   Socket.io  │    │   Containers)   │
 └─────────────┘    │  + MongoDB)  │    └─────────────────┘
-                   └──────────────┘              │
-                                                 │
-                                    ┌─────────────────┐
-                                    │ Backend Machine │
-                                    │   (Docker +     │
-                                    │   Containers)   │
-                                    └─────────────────┘
+                   └───────|───────┘              
+                           |                      
+                           |         ┌─────────────────┐
+                           |         │ Backend Machines│
+                           .──────── |  (Docker +      │
+                                     │   Containers)   │
+                                     └─────────────────┘
 ```
 
 ### How It Works
