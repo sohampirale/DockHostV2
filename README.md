@@ -80,6 +80,7 @@ This starts:
 3. Run the backend service:
 ```bash
 # On the backend machine
+cd backend
 npm install
 DOCKHOST_API_KEY=your_api_key
 npm run build
@@ -105,6 +106,7 @@ ssh -p 1024 root@your-backend-ip
 ```
 
 Port numbers are automatically assigned (SSH: 1024, HTTP: 1025, HTTPS: 1026 in this example).
+
 Ports numbers will change as multiple instances are spawned in a backend.
 
 ### Instance Management
@@ -142,9 +144,9 @@ Each backend automatically manages port allocation:
 dockhost/
 ├── frontend/           # Next.js web interface
 ├── main-server/        # Express orchestration server
-├── backend/           # Backend machine service
-├── docker-compose.yml # Main services setup
-└── README.md         # This file
+├── backend/            # Backend machine service
+├── compose.yml         # Main services setup
+└── README.md           # This file
 ```
 
 ## Development
