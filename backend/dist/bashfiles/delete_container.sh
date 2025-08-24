@@ -1,1 +1,0 @@
-docker rm $USERNAME --force
