@@ -57,8 +57,8 @@ The platform consists of three main components:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/sohampirale/dockhost.git
-cd dockhost
+git clone https://github.com/sohampirale/DockHostV2.git
+cd DockHostV2
 ```
 
 2. Start the main services:
