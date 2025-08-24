@@ -19,7 +19,7 @@ The platform consists of three main components:
 │  (Next.js)  │    │  (Express +  │    │   (Docker +     │
 │             │    │   Socket.io  │    │   Containers)   │
 └─────────────┘    │  + MongoDB)  │    └─────────────────┘
-                   └───────|───────┘              
+                   └───────|──────┘              
                            |                      
                            |         ┌─────────────────┐
                            |         │ Backend Machines│
@@ -105,6 +105,7 @@ ssh -p 1024 root@your-backend-ip
 ```
 
 Port numbers are automatically assigned (SSH: 1024, HTTP: 1025, HTTPS: 1026 in this example).
+Ports numbers will change as multiple instances are spawned in a backend.
 
 ### Instance Management
 
