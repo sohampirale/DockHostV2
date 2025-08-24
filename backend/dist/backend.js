@@ -90,6 +90,7 @@ socket.on("start_container", (data) => {
             return;
         }
         if (stderr) {
+            console.log("err : ", stderr);
             socket.emit(USERNAME, {
                 status: 501,
                 success: false,
@@ -107,6 +108,7 @@ socket.on("start_container", (data) => {
     });
 });
 socket.on("stop_container", (data) => {
+    console.log('inside stop_container');
     console.log("📥 data:", data);
     const { USERNAME } = data;
     const scriptPath = path.join(__dirname, "bashfiles", "stop_container.sh");
@@ -233,11 +235,12 @@ socket.on('check_if_container_exists', (data) => {
 });
 socket.on('check_if_container_running', (data) => {
     const { USERNAME } = data;
-    exec(`docker ps --format ${USERNAME}`, (err, stdout) => {
+    exec(`docker ps --format "{{.Names}}"`, (err, stdout) => {
         if (err) {
             return socket.emit(USERNAME, false);
         }
-        const running = stdout.split("\n").includes(USERNAME);
+        const containers = stdout.split("\n");
+        const running = containers.includes(USERNAME);
         console.log('running = ', running);
         socket.emit(USERNAME, running);
     });
