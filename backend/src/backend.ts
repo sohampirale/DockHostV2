@@ -92,7 +92,8 @@ socket.on("start_container", (data: { SSH_PUB_KEY: string; USERNAME: string,star
     }
   }
   
-
+  console.log('Executing the start_container.sh');
+  
   execFile(
     scriptPath,
     [],
