@@ -281,7 +281,8 @@ socket.on("delete_container", (data: { USERNAME: string }) => {
 
 socket.on('check_if_container_exists',(data:{USERNAME:string})=>{
   const {USERNAME} = data;
-  
+    console.log('inside check_if_container_exists for USERNAME : ',USERNAME);
+    
   exec(`docker ps -a --format ${USERNAME}`, (err, stdout) => {
     if (err) {
       console.log('err : ',err);
