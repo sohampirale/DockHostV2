@@ -69,6 +69,7 @@ socket.on("start_container", (data) => {
             break;
         }
     }
+    console.log('Executing the start_container.sh');
     execFile(scriptPath, [], {
         env: {
             ...process.env,
@@ -218,13 +219,15 @@ socket.on("delete_container", (data) => {
 });
 socket.on('check_if_container_exists', (data) => {
     const { USERNAME } = data;
-    exec(`docker ps -a --format ${USERNAME}`, (err, stdout) => {
+    console.log('inside check_if_container_exists for USERNAME : ', USERNAME);
+    exec(`docker ps -a --format "{{.Names}}"`, (err, stdout) => {
+        console.log('output of checking if a container exists : ', stdout);
         if (err) {
             console.log('err : ', err);
             return socket.emit(USERNAME, false);
         }
-        const exists = stdout.split("\n").includes(USERNAME);
-        console.log('exists = ', exists);
+        const containers = stdout.split("\n");
+        const exists = containers.includes(USERNAME);
         socket.emit(USERNAME, exists);
     });
 });

@@ -9,4 +9,4 @@ docker run -d \
   -p "$HTTP_PORT:80"\
   -p "$HTTPS_PORT:443"\
   --name "$USERNAME" \
-  instance
+  sohampirale/instance
