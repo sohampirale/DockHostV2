@@ -75,13 +75,15 @@ This starts:
 
 ### Adding Backend Machines
 
-1. On any machine with Docker installed, register it as a backend through the web interface
-2. Get your API key from the dashboard
+1. Register a backend through the web interface
+2. Get your DOCKHOST_API_KEY key from the dashboard
 3. Run the backend service:
 ```bash
 # On the backend machine
 npm install
-DOCKHOST_API_KEY=your_api_key npm start
+DOCKHOST_API_KEY=your_api_key
+npm run build
+npm start
 ```
 
 The backend will automatically connect to your main server and be available for container deployment.
