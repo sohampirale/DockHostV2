@@ -8,7 +8,7 @@ RUN npm install
 
 COPY . .
 
-RUN cp .env.exmaple .env
+RUN cp .env.example .env
 
 RUN npm run build || true
 
